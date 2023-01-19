@@ -1,6 +1,6 @@
 package com.keep.pcc.repository;
 
-import com.keep.pcc.domain.AppUser;
+import com.keep.pcc.model.entities.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,6 @@
 package com.keep.pcc.service;
 
-import com.keep.pcc.domain.AppUser;
+import com.keep.pcc.model.entities.AppUser;
 import com.keep.pcc.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
