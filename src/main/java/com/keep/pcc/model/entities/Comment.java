@@ -24,43 +24,4 @@ public class Comment {
     @Column(name= "likes")
     private int likes;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getAppUserId() {
-        return appUserId;
-    }
-
-    public void setAppUserId(int appUserId) {
-        this.appUserId = appUserId;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
 }
