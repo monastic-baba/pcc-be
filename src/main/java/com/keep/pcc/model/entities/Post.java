@@ -52,4 +52,19 @@ public class Post {
     public void setBucketId(String bucketId) {
         this.bucketId = bucketId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Post post = (Post) o;
+
+        return id == post.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }

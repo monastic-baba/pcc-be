@@ -16,5 +16,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
     @Query("update AppUser au set au.name = :name where au.id = :id")
     void setName(@Param("name") String name, @Param("id") int id);
 
-    AppUser findByName(String name);
+    AppUser findAppUsersByUsername(String username);
 }

@@ -18,8 +18,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public void addAppUser(AppUser appUser) {
-        appUserRepository.save(appUser);
+    public AppUser addAppUser(AppUser appUser) {
+        return appUserRepository.save(appUser);
     }
 
     @Override
@@ -28,17 +28,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser getAppUserById(int id) {
-        return appUserRepository.getReferenceById(id);
-    }
-
-    @Override
-    public void updateAppUserName(int id) {
-        appUserRepository.setName("New name!", id);
-    }
-
-    @Override
-    public void deleteAppUserById(int id) {
-    appUserRepository.deleteById(id);
+    public AppUser getAppUserByUsername(String username) {
+        return appUserRepository.findAppUsersByUsername(username);
     }
 }
