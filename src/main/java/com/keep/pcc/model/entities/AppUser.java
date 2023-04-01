@@ -1,11 +1,14 @@
 package com.keep.pcc.model.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,4 +29,5 @@ public class AppUser {
 
     @Column(name="bio")
     private String bio;
+
 }

@@ -16,6 +16,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'junit:junit:4.13.1'
+	implementation 'junit:junit:4.13.1'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'org.postgresql:postgresql'
@@ -23,6 +25,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	testCompileOnly 'org.projectlombok:lombok:1.18.26'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+
 }
 
 tasks.named('test') {
