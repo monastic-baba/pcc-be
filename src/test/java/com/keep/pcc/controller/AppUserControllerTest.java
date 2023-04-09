@@ -2,6 +2,7 @@ package com.keep.pcc.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keep.pcc.exception.NotFoundException;
 import com.keep.pcc.model.entities.AppUser;
 import com.keep.pcc.model.entities.Credential;
 import com.keep.pcc.service.AppUserService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebMvcTest(AppUserController.class)
 class AppUserControllerTest {
@@ -49,15 +52,15 @@ class AppUserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(mockAppUser))
                 ).andReturn();
-        String response = addUserResponse.getResponse().getContentAsString();
-        Assertions.assertEquals("test added!", response,"user not added");
+        AppUser response = objectMapper.readValue(addUserResponse.getResponse().getContentAsString(), AppUser.class);
+        Assertions.assertEquals(mockAppUser, response,"user not added");
     }
 
     @Test
-    void login() throws Exception {
+    void loginSuccess() throws Exception {
         AppUser mockAppUser = AppUser.builder().name("test").username("test_user").password("password").build();
         Credential mockCredentialsValid = Credential.builder().username("test_user").password("password").build();
-        Mockito.when(appUserService.getAppUserByUsername(Mockito.any(String.class))).thenReturn(mockAppUser);
+        Mockito.when(appUserService.loginUser(Mockito.any(Credential.class))).thenReturn(mockAppUser);
         ObjectMapper objectMapper = new ObjectMapper();
         MvcResult loginResponse = mockMvc.perform(
                 MockMvcRequestBuilders.post("/appUser/login")
@@ -70,17 +73,15 @@ class AppUserControllerTest {
 
     @Test
     void loginFail() throws Exception {
-        AppUser mockAppUser = AppUser.builder().name("test").username("test_user").password("password").build();
         Credential mockCredentialsInvalid = Credential.builder().username("test_user").password("wrongPass").build();
-        Mockito.when(appUserService.getAppUserByUsername(Mockito.any(String.class))).thenReturn(mockAppUser);
+        Mockito.when(appUserService.loginUser(Mockito.any(Credential.class))).thenThrow(new NotFoundException());
         ObjectMapper objectMapper = new ObjectMapper();
         MvcResult loginResponse = mockMvc.perform(
                 MockMvcRequestBuilders.post("/appUser/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(mockCredentialsInvalid))
         ).andReturn();
-        String response = loginResponse.getResponse().getContentAsString();
-        Assertions.assertEquals(0, response.length());
+        Assertions.assertEquals("Value not found!", loginResponse.getResponse().getErrorMessage());
     }
 
     @Test
