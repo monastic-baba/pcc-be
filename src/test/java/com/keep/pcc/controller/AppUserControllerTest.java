@@ -3,6 +3,7 @@ package com.keep.pcc.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keep.pcc.exception.NotFoundException;
+import com.keep.pcc.model.dto.AppUserDto;
 import com.keep.pcc.model.entities.AppUser;
 import com.keep.pcc.model.entities.Credential;
 import com.keep.pcc.service.AppUserService;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -44,21 +44,21 @@ class AppUserControllerTest {
 
     @Test
     void addUser() throws Exception {
-        AppUser mockAppUser = AppUser.builder().name("test").username("test_user").bio("bio").build();
-        Mockito.when(appUserService.addAppUser(Mockito.any(AppUser.class))).thenReturn(mockAppUser);
+        AppUserDto mockAppUser = AppUserDto.builder().name("test").username("test_user").bio("bio").build();
+        Mockito.when(appUserService.addAppUser(Mockito.any(AppUserDto.class))).thenReturn(mockAppUser);
         ObjectMapper objectMapper = new ObjectMapper();
         MvcResult addUserResponse = mockMvc.perform(
                 MockMvcRequestBuilders.post("/appUser/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(mockAppUser))
                 ).andReturn();
-        AppUser response = objectMapper.readValue(addUserResponse.getResponse().getContentAsString(), AppUser.class);
+        AppUserDto response = objectMapper.readValue(addUserResponse.getResponse().getContentAsString(), AppUserDto.class);
         Assertions.assertEquals(mockAppUser, response,"user not added");
     }
 
     @Test
     void loginSuccess() throws Exception {
-        AppUser mockAppUser = AppUser.builder().name("test").username("test_user").password("password").build();
+        AppUserDto mockAppUser = AppUserDto.builder().name("test").username("test_user").build();
         Credential mockCredentialsValid = Credential.builder().username("test_user").password("password").build();
         Mockito.when(appUserService.loginUser(Mockito.any(Credential.class))).thenReturn(mockAppUser);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -86,10 +86,10 @@ class AppUserControllerTest {
 
     @Test
     void allUsers() throws Exception {
-        List<AppUser> mockAllUsers = new ArrayList<AppUser>();
-        mockAllUsers.add(AppUser.builder().name("test1").username("test_user1").password("password1").build());
-        mockAllUsers.add(AppUser.builder().name("test2").username("test_user2").password("password2").build());
-        mockAllUsers.add(AppUser.builder().name("test3").username("test_user3").password("password3").build());
+        List<AppUserDto> mockAllUsers = new ArrayList<AppUserDto>();
+        mockAllUsers.add(AppUserDto.builder().name("test1").username("test_user1").build());
+        mockAllUsers.add(AppUserDto.builder().name("test2").username("test_user2").build());
+        mockAllUsers.add(AppUserDto.builder().name("test3").username("test_user3").build());
         Mockito.when(appUserService.getAllAppUsers()).thenReturn(mockAllUsers);
         MvcResult allUsersResponse = mockMvc.perform(MockMvcRequestBuilders.get("/appUser/all")).andReturn();
         ObjectMapper objectMapper = new ObjectMapper();
