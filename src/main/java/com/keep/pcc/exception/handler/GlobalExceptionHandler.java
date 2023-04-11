@@ -2,6 +2,7 @@ package com.keep.pcc.exception.handler;
 
 import com.keep.pcc.exception.NotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,5 +41,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorList);
     }
 
+    @ExceptionHandler(TransactionSystemException.class)
+    public ResponseEntity<?> handleJPAException(TransactionSystemException exception){
+        System.out.println("in global exception handler!");
+        return ResponseEntity.badRequest().build();
+    }
 
 }
