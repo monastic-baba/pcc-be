@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,6 +15,8 @@ public class AppUserDto {
 
     private int id;
     private String name;
+
+    @NotNull
     private String username;
     private String bio;
     private String email;

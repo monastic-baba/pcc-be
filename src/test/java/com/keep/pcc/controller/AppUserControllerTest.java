@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @WebMvcTest(AppUserController.class)
 class AppUserControllerTest {
@@ -54,6 +54,21 @@ class AppUserControllerTest {
                 ).andReturn();
         AppUserDto response = objectMapper.readValue(addUserResponse.getResponse().getContentAsString(), AppUserDto.class);
         Assertions.assertEquals(mockAppUser, response,"user not added");
+    }
+
+    @Test
+    void addNullUser() throws Exception {
+        AppUserDto mockAppUser = AppUserDto.builder().name("test").bio("bio").build();
+        Mockito.when(appUserService.addAppUser(Mockito.any(AppUserDto.class))).thenReturn(mockAppUser);
+        ObjectMapper objectMapper = new ObjectMapper();
+        MvcResult addUserResponse = mockMvc.perform(
+                MockMvcRequestBuilders.post("/appUser/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(mockAppUser))
+        ).andReturn();
+        List<Map<String, String>> response = objectMapper.readValue(addUserResponse.getResponse().getContentAsString(), new TypeReference<List<Map<String, String>>>() {});
+        Assertions.assertEquals(400, addUserResponse.getResponse().getStatus(),"null user added");
+        Assertions.assertNotEquals(0, response.size(),"null user added");
     }
 
     @Test

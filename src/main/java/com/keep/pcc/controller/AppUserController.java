@@ -6,6 +6,7 @@ import com.keep.pcc.model.entities.Credential;
 import com.keep.pcc.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -30,7 +31,7 @@ public class AppUserController {
 
     @Transactional
     @PostMapping(value = "/signup")
-    public ResponseEntity<AppUserDto> addUser(@RequestBody AppUserDto appUser) {
+    public ResponseEntity<AppUserDto> addUser(@Validated @RequestBody AppUserDto appUser) {
         AppUserDto newUser = this.appUserService.addAppUser(appUser);
         return ResponseEntity.ok(newUser);
     }

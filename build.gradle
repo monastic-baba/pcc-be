@@ -29,6 +29,10 @@ dependencies {
 	implementation "org.mapstruct:mapstruct:1.5.3.Final"
 	testImplementation "org.testng:testng:6.10", "org.easytesting:fest-assert:1.4"
 	annotationProcessor "org.mapstruct:mapstruct-processor:1.5.3.Final"
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+	implementation 'org.hibernate.validator:hibernate-validator:6.1.0.Final'
+	annotationProcessor 'org.hibernate.validator:hibernate-validator-annotation-processor:6.1.0.Final'
+
 
 }
 
