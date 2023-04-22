@@ -56,7 +56,7 @@ class AppUserControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(mockAppUser))
         ).andReturn();
-        Assertions.assertEquals(400, addUserResponse.getResponse().getStatus(),"bad user added");
+        Assertions.assertEquals(400, addUserResponse.getResponse().getStatus(),"trying to add bad user");
     }
 
     @Rollback
