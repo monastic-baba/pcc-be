@@ -21,4 +21,8 @@ public class AppUserDto {
     private String bio;
     private String email;
     private String password;
+
+    private String[] postIds;
+    private String[] bucketIds;
+    private String[] tagIds;
 }

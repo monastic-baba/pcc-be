@@ -1,6 +1,7 @@
 package com.keep.pcc.model.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,5 +38,17 @@ public class AppUser {
     @Size(max = 255)
     @Column(name="bio")
     private String bio;
+
+    @Column(columnDefinition = "text[]")
+    @Type(type = "com.keep.pcc.mapper.CustomStringArrayType")
+    private String[] postIds;
+
+    @Column(columnDefinition = "text[]")
+    @Type(type = "com.keep.pcc.mapper.CustomStringArrayType")
+    private String[] bucketIds;
+
+    @Column(columnDefinition = "text[]")
+    @Type(type = "com.keep.pcc.mapper.CustomStringArrayType")
+    private String[] tagIds;
 
 }

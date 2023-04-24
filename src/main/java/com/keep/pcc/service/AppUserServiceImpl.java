@@ -25,8 +25,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUserDto addAppUser(AppUserDto appUser) {
-        AppUser savedUser = appUserRepository.save(appUserMapper.appUserDtoToAppUser(appUser));
+    public AppUserDto addAppUser(AppUserDto appUserDto) {
+        AppUser savedUser = appUserRepository.save(appUserMapper.appUserDtoToAppUser(appUserDto));
         return appUserMapper.appUserToAppUserDto(savedUser);
     }
 

@@ -1,7 +1,6 @@
 package com.keep.pcc.controller;
 
 import com.keep.pcc.model.dto.AppUserDto;
-import com.keep.pcc.model.entities.AppUser;
 import com.keep.pcc.model.entities.Credential;
 import com.keep.pcc.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;

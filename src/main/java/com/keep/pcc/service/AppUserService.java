@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AppUserService {
 
-    AppUserDto addAppUser(AppUserDto appUser);
+    AppUserDto addAppUser(AppUserDto appUserDto);
 
     List<AppUserDto> getAllAppUsers();
 
