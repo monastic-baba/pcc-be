@@ -1,8 +1,12 @@
 package com.keep.pcc.service;
 
-import org.springframework.stereotype.Service;
+import com.keep.pcc.model.requestDto.TagRequestDto;
+import com.keep.pcc.model.responseDto.TagResponseDto;
 
-@Service
-public class TagService {
+import java.util.List;
 
+public interface TagService {
+    TagResponseDto createTag(TagRequestDto tagRequestDto);
+
+    List<TagResponseDto> getAllTagsForBucket(int bucketId);
 }
