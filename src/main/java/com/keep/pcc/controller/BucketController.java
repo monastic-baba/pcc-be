@@ -1,8 +1,8 @@
 package com.keep.pcc.controller;
 
-import com.keep.pcc.model.dto.AppUserDto;
-import com.keep.pcc.model.dto.BucketDto;
+import com.keep.pcc.model.requestDto.BucketRequestDto;
 import com.keep.pcc.model.entities.Bucket;
+import com.keep.pcc.model.responseDto.BucketResponseDto;
 import com.keep.pcc.service.BucketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +30,19 @@ public class BucketController {
 
     @Transactional
     @PostMapping(value = "/create")
-    public ResponseEntity<BucketDto> addUser(@Validated @RequestBody Bucket bucket) {
-        BucketDto newBucket = this.bucketService.addBucket(bucket);
+    public ResponseEntity<BucketResponseDto> addBucket(@Validated @RequestBody Bucket bucket) {
+        BucketResponseDto newBucket = this.bucketService.addBucket(bucket);
         return ResponseEntity.ok(newBucket);
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<BucketDto>> appUsers() {
+    public ResponseEntity<List<BucketResponseDto>> allBuckets() {
         return ResponseEntity.ok(this.bucketService.getAllBuckets());
+    }
+
+    @GetMapping(value="/get/{bucketId}")
+    public ResponseEntity<BucketResponseDto> getBucket(@PathVariable int bucketId){
+        return ResponseEntity.ok(this.bucketService.getBucket(bucketId));
     }
 
 }

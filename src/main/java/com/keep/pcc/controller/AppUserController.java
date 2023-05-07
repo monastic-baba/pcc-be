@@ -1,7 +1,8 @@
 package com.keep.pcc.controller;
 
-import com.keep.pcc.model.dto.AppUserDto;
+import com.keep.pcc.model.requestDto.AppUserRequestDto;
 import com.keep.pcc.model.entities.Credential;
+import com.keep.pcc.model.responseDto.AppUserResponseDto;
 import com.keep.pcc.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,22 +28,26 @@ public class AppUserController {
         return "healthy!";
     }
 
-
-    @Transactional
     @PostMapping(value = "/signup")
-    public ResponseEntity<AppUserDto> addUser(@Validated @RequestBody AppUserDto appUser) {
-        AppUserDto newUser = this.appUserService.addAppUser(appUser);
+    public ResponseEntity<AppUserResponseDto> addNewAppUser(@Validated @RequestBody AppUserRequestDto appUser) {
+        AppUserResponseDto newUser = this.appUserService.addAppUser(appUser);
+        return ResponseEntity.ok(newUser);
+    }
+
+    @PatchMapping(value = "/update/{userId}")
+    public ResponseEntity<AppUserResponseDto> updateUser(@PathVariable int userId, @Validated @RequestBody AppUserRequestDto appUser){
+        AppUserResponseDto newUser = this.appUserService.updateAppUser(userId, appUser);
         return ResponseEntity.ok(newUser);
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<AppUserDto> login(@RequestBody Credential credential) {
-            AppUserDto loggedInUser = this.appUserService.loginUser(credential);
+    public ResponseEntity<AppUserResponseDto> login(@RequestBody Credential credential) {
+        AppUserResponseDto loggedInUser = this.appUserService.loginUser(credential);
             return ResponseEntity.ok(loggedInUser);
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<AppUserDto>> appUsers() {
+    public ResponseEntity<List<AppUserResponseDto>> appUsers() {
         return ResponseEntity.ok(this.appUserService.getAllAppUsers());
     }
 }

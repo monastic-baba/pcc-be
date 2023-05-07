@@ -1,15 +1,18 @@
 package com.keep.pcc.service;
 
-import com.keep.pcc.model.dto.AppUserDto;
+import com.keep.pcc.model.requestDto.AppUserRequestDto;
 import com.keep.pcc.model.entities.Credential;
+import com.keep.pcc.model.responseDto.AppUserResponseDto;
 
 import java.util.List;
 
 public interface AppUserService {
 
-    AppUserDto addAppUser(AppUserDto appUserDto);
+    AppUserResponseDto addAppUser(AppUserRequestDto appUserRequestDto);
 
-    List<AppUserDto> getAllAppUsers();
+    List<AppUserResponseDto> getAllAppUsers();
 
-    AppUserDto loginUser(Credential credential);
+    AppUserResponseDto loginUser(Credential credential);
+
+    AppUserResponseDto updateAppUser(int userId, AppUserRequestDto appUser);
 }

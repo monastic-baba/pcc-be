@@ -1,4 +1,4 @@
-package com.keep.pcc.model.dto;
+package com.keep.pcc.model.responseDto;
 
 import com.keep.pcc.model.entities.Tag;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BucketDto {
+public class BucketResponseDto {
     private int id;
     private String name;
     private Set<Tag> tags;

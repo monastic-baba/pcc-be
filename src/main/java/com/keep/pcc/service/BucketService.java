@@ -1,15 +1,15 @@
 package com.keep.pcc.service;
 
-import com.keep.pcc.model.dto.AppUserDto;
-import com.keep.pcc.model.dto.BucketDto;
+import com.keep.pcc.model.requestDto.BucketRequestDto;
 import com.keep.pcc.model.entities.Bucket;
+import com.keep.pcc.model.responseDto.BucketResponseDto;
 
 import java.util.List;
 
 public interface BucketService {
-    BucketDto addBucket(Bucket bucket);
+    BucketResponseDto addBucket(Bucket bucket);
 
-    List<BucketDto> getAllBuckets();
+    List<BucketResponseDto> getAllBuckets();
 
-    BucketDto getBucket(Integer bucketId);
+    BucketResponseDto getBucket(Integer bucketId);
 }

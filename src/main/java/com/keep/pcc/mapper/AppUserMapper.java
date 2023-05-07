@@ -1,12 +1,13 @@
 package com.keep.pcc.mapper;
 
-import com.keep.pcc.model.dto.AppUserDto;
+import com.keep.pcc.model.requestDto.AppUserRequestDto;
 import com.keep.pcc.model.entities.AppUser;
+import com.keep.pcc.model.responseDto.AppUserResponseDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AppUserMapper {
 
-    AppUser appUserDtoToAppUser(AppUserDto appUserDto);
-    AppUserDto appUserToAppUserDto(AppUser appUser);
+    AppUser appUserRequestDtoToAppUser(AppUserRequestDto appUserRequestDto);
+    AppUserResponseDto appUserToAppUserResponseDto(AppUser appUser);
 }

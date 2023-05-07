@@ -1,11 +1,10 @@
 package com.keep.pcc.service;
 
-import com.keep.pcc.mapper.AppUserMapper;
+import com.keep.pcc.exception.NotFoundException;
 import com.keep.pcc.mapper.BucketMapper;
-import com.keep.pcc.model.dto.BucketDto;
-import com.keep.pcc.model.entities.AppUser;
+import com.keep.pcc.model.requestDto.BucketRequestDto;
 import com.keep.pcc.model.entities.Bucket;
-import com.keep.pcc.repository.AppUserRepository;
+import com.keep.pcc.model.responseDto.BucketResponseDto;
 import com.keep.pcc.repository.BucketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,23 +25,23 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public BucketDto addBucket(Bucket bucket) {
+    public BucketResponseDto addBucket(Bucket bucket) {
         Bucket savedBucket = bucketRepository.save(bucket);
-        return bucketMapper.bucketToBucketDto(savedBucket);
+        return bucketMapper.bucketToBucketResponseDto(savedBucket);
     }
 
     @Override
-    public List<BucketDto> getAllBuckets() {
+    public List<BucketResponseDto> getAllBuckets() {
         return bucketRepository.findAll()
                 .stream()
-                .map( user -> bucketMapper.bucketToBucketDto(user))
+                .map( user -> bucketMapper.bucketToBucketResponseDto(user))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public BucketDto getBucket(Integer bucketId) {
+    public BucketResponseDto getBucket(Integer bucketId) {
         Bucket queriedBucket = bucketRepository.findById(bucketId).isPresent()
                 ? bucketRepository.findById(bucketId).get() : null;
-        return bucketMapper.bucketToBucketDto(queriedBucket);
+        return bucketMapper.bucketToBucketResponseDto(queriedBucket);
     }
 }
